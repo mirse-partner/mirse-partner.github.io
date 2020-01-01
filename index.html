@@ -346,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  330字
+                  548字
                 </span>
               
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1分钟
+                  2分钟
                 </span>
               
             </div>
@@ -392,10 +392,20 @@
 <li>node.js -&gt; 生成静态页面</li>
 <li>git -&gt; 云端存储</li>
 </ul>
-<p>##安装过程<br>下载安装上述工具（node.js,git）均可在官网下载<br>安装完git,点击鼠标右击选择Git Bash Here,分别输入</p>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><p>下载安装上述工具（node.js,git）均可在官网下载<br>安装完git,点击鼠标右击选择Git Bash Here,分别输入</p>
 <pre><code>npm install hexo-cli -g //安装hexo
-npm install hexo-deployer-git --save //安装hexo部署到git page的deployer</code></pre><p>##创建hexo文件夹<br>在电脑上任意位置新建一个Hexo文件夹，进入文件夹根目录鼠标右击选择Git Bash Here，输入</p>
-<pre><code>hexo init //在此文件夹新建所需文件，包括主题配置文件、网页等等</code></pre><p>到这里你已经完成了本地建站，你可以在本地看到你的网页了！</p>
+npm install hexo-deployer-git --save //安装hexo部署到git page的deployer</code></pre><h2 id="创建hexo文件夹"><a href="#创建hexo文件夹" class="headerlink" title="创建hexo文件夹"></a>创建hexo文件夹</h2><p>在电脑上任意位置新建一个Hexo文件夹，进入文件夹根目录鼠标右击选择Git Bash Here，输入</p>
+<pre><code>hexo init //在此文件夹新建所需文件，包括主题配置文件、网页等等</code></pre><p>到这里你已经完成了本地建站，你可以在本地看到你的网页了！<br>如何在本地看到刚刚生成的网页？</p>
+<pre><code>hexo g //生成
+hexo s //开启本地预览服务</code></pre><p>开启后打开浏览器输入<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 即可看见网站<br>以上仅仅只是在本地预览，我们需要将hexo部署到github,实现云端预览</p>
+<h2 id="部署至Github"><a href="#部署至Github" class="headerlink" title="部署至Github"></a>部署至Github</h2><p>1、拥有github账号<br>2、新建仓库，仓库名：”用户名.github.io”<br>3、编辑hexo根目录下的_config.yml文件 </p>
+<pre><code>deploy:
+  type: git
+  repository: https://github.com/mirse-partner/mirse-partner.github.io //仓库对应链接
+  branch: master</code></pre><p>4、保存上述修改后的文件，git bash 执行下述命令</p>
+<pre><code>hexo generate
+hexo deploy //部署到github</code></pre><p>5、成功后通过网址https://你的github用户名.github.io 即可打开你在云端部署的博客。</p>
+<p>搭建过程中遇到的问题<br>1、##标题 预览时不生效<br>    正确写法 ## 标题  ##之后得有空格，语言才能生效。</p>
 <p>怎么删除文章 删除本地文章 -&gt; hexo g -&gt; hexo d<br>怎么修改文章 修改本地文章(保存修改) -&gt; hexo g -&gt;hexo s -&gt; hexo d<br>怎么修改主题 hexo clean #删除缓存 -&gt; hexo g -&gt;hexo s #更改本地仓库 -&gt; hexo d</p>
 
           
@@ -545,7 +555,7 @@ npm install hexo-deployer-git --save //安装hexo部署到git page的deployer</c
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -572,7 +582,7 @@ npm install hexo-deployer-git --save //安装hexo部署到git page的deployer</c
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共330字</span>
+  <span class="post-count">博客全站共548字</span>
 </div>
 
         
