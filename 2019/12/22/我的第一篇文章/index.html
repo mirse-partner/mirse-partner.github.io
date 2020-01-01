@@ -351,7 +351,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  662字
+                  688字
                 </span>
               
 
@@ -409,7 +409,7 @@ hexo s //开启本地预览服务</code></pre><p>开启后打开浏览器输入<
 <pre><code>hexo generate
 hexo deploy //部署到github</code></pre><p>5、成功后通过网址https://你的github用户名.github.io 即可打开你在云端部署的博客。</p>
 <p>搭建过程中遇到的问题<br>1、##标题 预览时不生效<br>    正确写法 ## 标题  ##之后得有空格，语言才能生效。</p>
-<p>2、如何在主页不显示全文<br>    打开主题中得_config.yml ,找到 auto_excerpt:设置成true即可</p>
+<p>2、如何在主页不显示全文<br>    打开主题中得_config.yml ,找到 auto_excerpt:设置成true即可,<br>    auto_excerpt中的参数可以修改显示文字：<br>    site_uv_header: 访客数<br>      site_uv_footer: 人<br>      site_pv_header: 总访问量<br>    site_pv_footer: 次</p>
 <p>3、如何实现本站人数统计<br>    如果你使用得是next主题，在themes\next_config.yml文件中，找到busuanzi_count:enable设置成true即可实现人数统计，但是由于不蒜子统计的域名过期了，所以你看到的人数统计是空，修改/theme/next/layout/_third-party/analytics/busuanzi-counter.swig文中，修改后：<br>      <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><br>怎么删除文章 删除本地文章 -&gt; hexo g -&gt; hexo d<br>怎么修改文章 修改本地文章(保存修改) -&gt; hexo g -&gt;hexo s -&gt; hexo d<br>怎么修改主题 hexo clean #删除缓存 -&gt; hexo g -&gt;hexo s #更改本地仓库 -&gt; hexo d</p>
 
       
@@ -644,7 +644,7 @@ hexo deploy //部署到github</code></pre><p>5、成功后通过网址https://�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共662字</span>
+  <span class="post-count">博客全站共688字</span>
 </div>
 
         
