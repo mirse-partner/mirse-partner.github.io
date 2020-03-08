@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="生命周期," />
+  <meta name="keywords" content="Android,Anr," />
 
 
 
@@ -77,23 +77,21 @@
 
 
 
-<meta name="description" content="服务概括服务是一种可在后台长期运行不需要界面的应用组件，它可以由其他组件启动，且不依赖于其他组件，此外服务可以通过绑定与其他组件进行交互，甚至执行进程间通信（IPC）。最常见的运用服务的app如音乐播放器可在后台播放音乐，不依赖于activity界面。 服务类型1、前台：前台服务执行的是用户能注意的操作，需要显示通知。2、后台：后台服务执行的是用户不会注意的操作，与前台服务相反。3、绑定：绑定服务">
+<meta name="description" content="前言最近在开发时遇到Anr(应用程序未响应)问题，由于开发经验比较少，所以还是第一次遇到这种问题，想要解决这类问题还是要从Anr产生的原因，Anr日志分析、如何避免Anr入手。 Anr产生的原因一般的产生原因都是在该完成的时间内未完成相关操作，如果超过预定时间能未能得到有效响应或者响应时间过长，都会造成 ANR。产生的场景大致分为以下4种：1、Service Timeout：比如前台服务在 20s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android Service">
-<meta property="og:url" content="https://mirse-partner.github.io/2020/01/23/Android-Service/index.html">
+<meta property="og:title" content="Anr分析">
+<meta property="og:url" content="https://mirse-partner.github.io/2020/03/08/Anr%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Mirse Blog">
-<meta property="og:description" content="服务概括服务是一种可在后台长期运行不需要界面的应用组件，它可以由其他组件启动，且不依赖于其他组件，此外服务可以通过绑定与其他组件进行交互，甚至执行进程间通信（IPC）。最常见的运用服务的app如音乐播放器可在后台播放音乐，不依赖于activity界面。 服务类型1、前台：前台服务执行的是用户能注意的操作，需要显示通知。2、后台：后台服务执行的是用户不会注意的操作，与前台服务相反。3、绑定：绑定服务">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-672461585849336a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-477735003ce583ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-a2ff4f4952a35113.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-93d86ee28e4fd067.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-a7df34da9856f569.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="article:published_time" content="2020-01-23T09:12:27.000Z">
-<meta property="article:modified_time" content="2019-01-30T12:54:00.000Z">
+<meta property="og:description" content="前言最近在开发时遇到Anr(应用程序未响应)问题，由于开发经验比较少，所以还是第一次遇到这种问题，想要解决这类问题还是要从Anr产生的原因，Anr日志分析、如何避免Anr入手。 Anr产生的原因一般的产生原因都是在该完成的时间内未完成相关操作，如果超过预定时间能未能得到有效响应或者响应时间过长，都会造成 ANR。产生的场景大致分为以下4种：1、Service Timeout：比如前台服务在 20s">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-c4bbef98bb52b3b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-b0e35aa6ca585d6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-03-08T07:00:26.000Z">
+<meta property="article:modified_time" content="2020-03-08T07:00:26.000Z">
 <meta property="article:author" content="Wdz">
-<meta property="article:tag" content="生命周期">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Anr">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6129767-672461585849336a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6129767-c4bbef98bb52b3b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -123,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://mirse-partner.github.io/2020/01/23/Android-Service/"/>
+  <link rel="canonical" href="https://mirse-partner.github.io/2020/03/08/Anr分析/"/>
 
 
 
 
 
-  <title>Android Service | Mirse Blog</title>
+  <title>Anr分析 | Mirse Blog</title>
   
 
 
@@ -259,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mirse-partner.github.io/2020/01/23/Android-Service/">
+    <link itemprop="mainEntityOfPage" href="https://mirse-partner.github.io/2020/03/08/Anr%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wdz">
@@ -276,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android Service</h1>
+          <h1 class="post-title" itemprop="name headline">Anr分析</h1>
         
 
         <div class="post-meta">
@@ -288,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-23T17:12:27+08:00">
-                2020-01-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-08T15:00:26+08:00">
+                2020-03-08
               </time>
             
 
@@ -301,28 +299,6 @@
           
 
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Android基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -350,7 +326,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k字
+                  865字
                 </span>
               
 
@@ -366,7 +342,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5分钟
+                  3分钟
                 </span>
               
             </div>
@@ -387,29 +363,14 @@
       
 
       
-        <h1 id="服务概括"><a href="#服务概括" class="headerlink" title="服务概括"></a>服务概括</h1><p>服务是一种可在后台长期运行不需要界面的应用组件，它可以由其他组件启动，且不依赖于其他组件，此外服务可以通过绑定与其他组件进行交互，甚至执行进程间通信（IPC）。最常见的运用服务的app如音乐播放器可在后台播放音乐，不依赖于activity界面。</p>
-<h1 id="服务类型"><a href="#服务类型" class="headerlink" title="服务类型"></a>服务类型</h1><p>1、前台：前台服务执行的是用户能注意的操作，需要显示通知。<br>2、后台：后台服务执行的是用户不会注意的操作，与前台服务相反。<br>3、绑定：绑定服务会提供客户端-服务器接口，组件与服务交互以及进程间通信都是通过绑定服务，注意：多个组件可同时绑定到一个服务，当所有绑定解绑后，服务才会被销毁。</p>
-<h1 id="服务的启动方式"><a href="#服务的启动方式" class="headerlink" title="服务的启动方式"></a>服务的启动方式</h1><p>启动service的方法有两种：startService和BindService，两种方法涉及的生命周期大致相同，具体如下图所示：<br>以下说明各个生命周期含义：</p>
-<ol>
-<li>onCreate:创建服务</li>
-<li>onBind:绑定服务</li>
-<li>onStart:(已过时)</li>
-<li>onStartCommand:启动服务，当调用startService时会调用该方法</li>
-<li>onUnbind:解绑服务</li>
-<li>onPause:暂停服务</li>
-<li>onDestroy:销毁服务<br>以上参考android官方文档地址：<a href="https://developer.android.google.cn/training/best-background" target="_blank" rel="noopener">https://developer.android.google.cn/training/best-background</a></li>
-</ol>
-<p>通常启动服务往往伴随着绑定服务，所以其中的生命周期复杂多样，往往启动跟绑定交叉使用，以下重点梳理下不同方式所执行的生命周期：<br>[图片上传失败…(image-2a58f5-1580129516189)]<br>以上是两种简单的启动停止Service方式,左图为startService-&gt;stopService,右图为bindService-&gt;unbindService。<br>往往启动跟绑定是交叉使用，如下图是交叉使用的生命周期图，一般启动服务所涉及的生命周期如图箭头所示。<br><img src="https://upload-images.jianshu.io/upload_images/6129767-672461585849336a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="android_service.png"></p>
-<p>根据上述流程图，有几点需要注意：<br>1、startService后执行bindService如果使用的是BIND_AUTO_CREATE参数，接下来使用stopService服务并不会停止或者解绑。<br>2、使用bindService(BIND_NOT_FOREGROUND)绑定服务后，服务并不会启动，只是单纯的绑定了服务。<br>3、使用bindService(BIND_AUTO_CREATE)绑定服务后，服务可以启动并绑定，如果调用stopService服务并不会解绑或销毁。<br>在调用bindService时需要传入flags参数，列举通常使用的几个参数：<br>1、BIND_AUTO_CREATE：只要绑定服务，就自动创建服务<br>2、BIND_NOT_FOREGROUND：系统将阻止驻留该服务的进程具有前台优先级，仅在后台运行。</p>
-<h1 id="ServiceConnectionLeaked"><a href="#ServiceConnectionLeaked" class="headerlink" title="ServiceConnectionLeaked"></a>ServiceConnectionLeaked</h1><p>该问题在使用service时常常出现，具体报错提示如下图<br><img src="https://upload-images.jianshu.io/upload_images/6129767-477735003ce583ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="error.png"><br>出现该问题的场景是：如果在activity finish前没有解绑service就会出现这个error。<br>解决方法是在activity 销毁前unbindService，建议在onPause/onDestroy时解绑服务，具体在哪个方法视场景而定。<br>这个error是怎么产生的呢？按字面理解应该是类似于内存泄露，activity销毁了但是ServiceConnection还没有解绑导致。<br>如下图报错提示：<br><img src="https://upload-images.jianshu.io/upload_images/6129767-a2ff4f4952a35113.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="serviceConnectionLeaked.png"><br>根据报错提示，总结以下流程图<br><img src="https://upload-images.jianshu.io/upload_images/6129767-93d86ee28e4fd067.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ServiceConnectionLeakedAnalyse.png"><br>可以看出该报错是从ActivityThread.java中handleDestroyActivity导致，handleDestroyActivity方法是activity销毁的回调方法，那是什么情况导致这个error抛出呢？从removeContextRegistrations方法中看到当ArrayMap mServices中key为context的ArrayMap 不为空时就会抛出该错误，我们在bindService时，会将ServiceConnection用ArrayMap保存起来，如果activity销毁时没有解绑，就会进入该error。</p>
-<p>开发过程中对于这个问题又出现了一种特殊情况，在startService-&gt;bindService(BIND_NOT_FOREGROUND)-&gt;stopService后，生命周期虽然在执行stopService后onUnbind-&gt;onDestroy，但是此时只要一销毁activity还是会报这个错误。如果是unbindService在ContextImpl类中会 执行mPackageInfo.forgetServiceDispatcher()，将ArrayMap中的ServiceConnection移除，但是如果是 stopService并不会操作ArrayMap，但是为什么stopService还是会出发onUnbind呢？<br>根据context.stopService进入到ActivityManagerService,ActivityServices，stopService最终执行bringDownServiceLocked，在该方法中会执行以下4个操作：<br>1、关闭所有客户端连接，通过IPC触发客户端的ServiceConnection.onServiceDisconnected<br>2、清理资源（ArrayList）<br>3、通过IPC触发服务的onUnbind生命周期方法<br>4、通过IPC触发服务的onDestory生命周期方法<br>所以这就可以说明为什么stopService会触发onUnbind生命周期了。</p>
-<p>附上stopService时序图<br><img src="https://upload-images.jianshu.io/upload_images/6129767-a7df34da9856f569.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="stopService时序图.png"></p>
-<h1 id="IntentService"><a href="#IntentService" class="headerlink" title="IntentService"></a>IntentService</h1><p>service先研究到这里，通常后台服务常伴随着耗时操作，service通常在其托管进程的主线程中运行，它既不创建自己的线程，也不在单独的进程中运行，除非你在其中创建新的子线程，所以android提供了一个新的类IntentService,它继承Service，根据其生命周期onCreate-&gt;onHandleIntent-&gt;onDestroy,onHandleIntent方法会在子线程中执行，并且是处理完自动停止，并且一次只能处理一个任务，由于IntentService继承Service,所以也支持绑定、解绑。如下是IntentService源码中onCreate所执行的代码，可以看出在onCreate中创建了一个工作线程HandlerThread，使用ServiceHandler来作为消息执行者，这里用到了HandlerThread+Handler组合带消息循环机制的异步任务处理机制。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">// <span class="doctag">TODO:</span> It would be nice to have an option to hold a partial wakelock</span></span><br><span class="line">       <span class="comment">// during processing, and to have a static startService(Context, Intent)</span></span><br><span class="line">       <span class="comment">// method that would launch the service &amp; hand off a wakelock.</span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">super</span>.onCreate();</span><br><span class="line">       HandlerThread thread = <span class="keyword">new</span> HandlerThread(<span class="string">"IntentService["</span> + mName + <span class="string">"]"</span>);</span><br><span class="line">       thread.start();</span><br><span class="line"></span><br><span class="line">       mServiceLooper = thread.getLooper();</span><br><span class="line">       mServiceHandler = <span class="keyword">new</span> ServiceHandler(mServiceLooper);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>备注补充知识点：<br>1、进程间通信（IPC）<br>2、activity管理-ActivityClientRecord<br>3、HandlerThread+Handler组合带消息循环机制的异步任务处理机制<br>4、整理生命周期时序图完成stopService（service）</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在开发时遇到Anr(应用程序未响应)问题，由于开发经验比较少，所以还是第一次遇到这种问题，想要解决这类问题还是要从Anr产生的原因，Anr日志分析、如何避免Anr入手。</p>
+<h1 id="Anr产生的原因"><a href="#Anr产生的原因" class="headerlink" title="Anr产生的原因"></a>Anr产生的原因</h1><p>一般的产生原因都是在该完成的时间内未完成相关操作，如果超过预定时间能未能得到有效响应或者响应时间过长，都会造成 ANR。产生的场景大致分为以下4种：<br>1、Service Timeout：比如前台服务在 20s 内未执行完成；<br>2、BroadcastQueue Timeout：比如前台广播在 10s 内未执行完成；<br>3、ContentProvider Timeout：内容提供者,在 publish 过超时 10s；<br>4、InputDispatching Timeout：输 件。</p>
+<h1 id="Anr日志抓取"><a href="#Anr日志抓取" class="headerlink" title="Anr日志抓取"></a>Anr日志抓取</h1><p>对于Anr日志的抓取，Android系统已经在底层帮我们抓取好了。但是要拿到这个日志还是不容易的，大致步骤如下：<br>1、电脑usb连接手机，先用命令行测试adb是否可以使用adb devices,如果出现”‘adb’ 不是内部或外部命令，也不是可运行的程序”,说明你未安装adb或者未配置环境，如果时第一种直接去下载adb，第二种的话可以去配置环境变量，当然你也可以打开adb路径，路径大致在sdk\platform-tools下，在这个路径下在试试adb命令吧，提醒下如果你是在PowerShell下敲命令在adb前需要加上./，例如”./adb devices”,才能正常运行。<br>2、查看Anr日志文件夹<br>执行命令 adb shell -&gt; cd data/anr -&gt; ls 即可查看anr文件夹下的trace日志。<br>3、将trace.text拷贝出来<br>由于文档一直存在手机种，为了方便排查问题我们需要将文档拷贝出来，拷贝过程中遇到了种种问题，最大的问题还是提示权限不足，如果你是root用户可以很简单的拷贝出来，但是考虑到目前大部分手机都很难解锁，使用”adb bugreport xxx（文件名）”可以将文件压缩拷贝至adb所在目录下。</p>
+<h1 id="Anr解决方法"><a href="#Anr解决方法" class="headerlink" title="Anr解决方法"></a>Anr解决方法</h1><p>绝大部分Anr都是因为在主线程执行了耗时操作导致，所以耗时操作请放在子线程中。使用Thread/HandlerThread时记得setThreadPriority设置优先级，因为默认的级别与主线程相同。</p>
+<h1 id="Anr日志分析"><a href="#Anr日志分析" class="headerlink" title="Anr日志分析"></a>Anr日志分析</h1><p>先从堆栈日志入手，发生Anr时在Android Studio中可以看到堆栈日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">07-26 17:51:04.442: E&#x2F;ActivityManager(2258): ANR in com.xxx.xxx(com.xxx.xxx&#x2F;com..xxx.xxx.activity.MainActivity)</span><br><span class="line">07-26 17:51:04.442: E&#x2F;ActivityManager(2258): PID: 28560</span><br><span class="line">07-26 17:51:04.442: E&#x2F;ActivityManager(2258): Reason: Input dispatching timed out (Waiting to send non-key event because the touched window has not finished processing certain input events that were delivered to it over 500.0ms ago.  Wait queue length: 11.  Wait queue head age: 5573.8ms.)</span><br></pre></td></tr></table></figure>
+<p>从上述信息可以大概看出，发生Anr的类是MainActivity，导致Anr的原因是InputDispatching Timeout，接下来我们分析导出来的trace日志，根据关键词查找”DALVIK THREADS”，并查看”main”线程日志，<br><img src="https://upload-images.jianshu.io/upload_images/6129767-c4bbef98bb52b3b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>根据我的日志可以看出主线程等待去锁 &lt;0x04085a6d&gt; GattStateListenerMgr这个对象，但是被thread11持有着，主线程被thread11阻塞着导致anr。</p>
+<p>搜索关键字”&lt;0x04085a6d&gt; “,如下图可以看住GattStateListenerMgr在这个被locked，到这里原因已经分析完毕，我们可以去解决问题了。<br><img src="https://upload-images.jianshu.io/upload_images/6129767-b0e35aa6ca585d6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 
       
     </div>
@@ -440,15 +401,15 @@
   </li>
     <li class="post-copyright-author">
     <strong>发布时间:</strong>
-    2020年01月23日 17:12
+    2020年03月08日 15:00
   </li>
   <li class="post-copyright-author">
     <strong>最后更新:</strong>
-    2019年01月30日 20:54
+    2020年03月08日 15:00
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://mirse-partner.github.io/2020/01/23/Android-Service/" title="Android Service">https://mirse-partner.github.io/2020/01/23/Android-Service/</a>
+    <a href="https://mirse-partner.github.io/2020/03/08/Anr%E5%88%86%E6%9E%90/" title="Anr分析">https://mirse-partner.github.io/2020/03/08/Anr%E5%88%86%E6%9E%90/</a>
   </li>
      <li class="post-copyright-author">
     <strong>本文与简书同步更新，简书地址：</strong>
@@ -467,7 +428,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="tag"><i class="fa fa-tag"></i> 生命周期</a>
+            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          
+            <a href="/tags/Anr/" rel="tag"><i class="fa fa-tag"></i> Anr</a>
           
         </div>
       
@@ -480,8 +443,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/22/hexo%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" rel="next" title="hexo平台搭建">
-                <i class="fa fa-chevron-left"></i> hexo平台搭建
+              <a href="/2020/01/23/Android-Service/" rel="next" title="Android Service">
+                <i class="fa fa-chevron-left"></i> Android Service
               </a>
             
           </div>
@@ -489,10 +452,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/08/Anr%E5%88%86%E6%9E%90/" rel="prev" title="Anr分析">
-                Anr分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -645,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#服务概括"><span class="nav-number">1.</span> <span class="nav-text">服务概括</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务类型"><span class="nav-number">2.</span> <span class="nav-text">服务类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务的启动方式"><span class="nav-number">3.</span> <span class="nav-text">服务的启动方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ServiceConnectionLeaked"><span class="nav-number">4.</span> <span class="nav-text">ServiceConnectionLeaked</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IntentService"><span class="nav-number">5.</span> <span class="nav-text">IntentService</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Anr产生的原因"><span class="nav-number">2.</span> <span class="nav-text">Anr产生的原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Anr日志抓取"><span class="nav-number">3.</span> <span class="nav-text">Anr日志抓取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Anr解决方法"><span class="nav-number">4.</span> <span class="nav-text">Anr解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Anr日志分析"><span class="nav-number">5.</span> <span class="nav-text">Anr日志分析</span></a></li></ol></div>
             
 
           </div>
@@ -873,7 +832,7 @@
       repo: 'MyGitalk',
       owner: 'mirse-partner',
       admin: ['mirse-partner'],
-      id: '1579770747000', //location.pathname **fixed**
+      id: '1583650826000', //location.pathname **fixed**
       distractionFreeMode: 'false'
     })
     gitalk.render('gitalk-container')
