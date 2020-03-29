@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,沉浸式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#沉浸式含义首先先明确一点沉浸式状态栏的说法并不准确，沉浸式是Android4.4推出的一种模式，可以使显示系统消息的状态栏（Status Bar）与最下方显示虚拟按键的底部导航栏(Navigation Bar)被隐藏掉。在谷歌开发文档中对沉浸式的描述是：“系统 UI 保持隐藏状态，即使在用户与您的应用或游戏交互时 - 您可以从屏幕上的任何位置（甚至在系统栏占据的其他位置）捕获触摸事件。这是您在应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 沉浸式状态栏">
+<meta property="og:url" content="https://mirse-partner.github.io/2020/03/29/Android-%E6%B2%89%E6%B5%B8%E5%BC%8F%E7%8A%B6%E6%80%81%E6%A0%8F/index.html">
+<meta property="og:site_name" content="Mirse Blog">
+<meta property="og:description" content="#沉浸式含义首先先明确一点沉浸式状态栏的说法并不准确，沉浸式是Android4.4推出的一种模式，可以使显示系统消息的状态栏（Status Bar）与最下方显示虚拟按键的底部导航栏(Navigation Bar)被隐藏掉。在谷歌开发文档中对沉浸式的描述是：“系统 UI 保持隐藏状态，即使在用户与您的应用或游戏交互时 - 您可以从屏幕上的任何位置（甚至在系统栏占据的其他位置）捕获触摸事件。这是您在应">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-7488cf8718a9b91c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-3582eefa206a9504.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6129767-29951b1bd6ca90b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-03-29T12:56:22.000Z">
+<meta property="article:modified_time" content="2020-03-29T12:56:22.000Z">
+<meta property="article:author" content="Wdz">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="沉浸式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6129767-7488cf8718a9b91c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mirse-partner.github.io/2020/03/29/Android-沉浸式状态栏/"/>
+
+
+
+
+
+  <title>Android 沉浸式状态栏 | Mirse Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/mirse" target="_blank" rel="noopener"><img style="position: absolute; top: 0; right: 0; border: 0;"  width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_gray_6d6d6d.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mirse Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">最朴素的生活和最遥远的梦想</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mirse-partner.github.io/2020/03/29/Android-%E6%B2%89%E6%B5%B8%E5%BC%8F%E7%8A%B6%E6%80%81%E6%A0%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wdz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mirse Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 沉浸式状态栏</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-29T20:56:22+08:00">
+                2020-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#沉浸式含义<br>首先先明确一点沉浸式状态栏的说法并不准确，沉浸式是Android4.4推出的一种模式，可以使显示系统消息的状态栏（Status Bar）与最下方显示虚拟按键的底部导航栏(Navigation Bar)被隐藏掉。<br>在谷歌开发文档中对沉浸式的描述是：“系统 UI 保持隐藏状态，即使在用户与您的应用或游戏交互时 - 您可以从屏幕上的任何位置（甚至在系统栏占据的其他位置）捕获触摸事件。这是您在应用或游戏中创建更大、更加丰富和更加沉浸式的 UI 并减少视觉分散的绝佳方式。”<br>#Android4.4沉浸式API<br>1、沉浸式全屏模式<br>setSystemUiVisibility (int visibility)<br>看了下标记多达十来个，以下截取部分常用标记：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SYSTEM_UI_FLAG_FULLSCREEN（WindowManager.LayoutParams.FLAG_FULLSCREEN）&#x2F;&#x2F;隐藏状态栏，手指在屏幕顶部往下拖动，状态栏会再次出现且不会消失</span><br><span class="line">SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN &#x2F;&#x2F;配合SYSTEM_UI_FLAG_FULLSCREEN使用状态栏出现时，不会挤压activty的高度，隐藏状态栏，手指在屏幕顶部往下拖动，状态栏会再次出现且不会消失</span><br><span class="line"></span><br><span class="line">SYSTEM_UI_FLAG_IMMERSIVE&#x2F;&#x2F; 这个标记仅与SYSTEM_UI_FLAG_HIDE_NAVIGATION配合使用，在全屏模式下在状态栏区域滑动会重新显示状态栏</span><br><span class="line">SYSTEM_UI_FLAG_IMMERSIVE_STICKY&#x2F;&#x2F;在全屏模式下在状态栏区域滑动会重新显示透明式状态栏，一会后会重新隐藏，与SYSTEM_UI_FLAG_FULLSCREEN和SYSTEM_UI_FLAG_HIDE_NAVIGATION配合产生效果。</span><br><span class="line"></span><br><span class="line">SYSTEM_UI_FLAG_HIDE_NAVIGATION&#x2F;&#x2F;隐藏导航栏，手指在导航栏滑动，导航栏会再次出现且不会消失</span><br><span class="line">SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION&#x2F;&#x2F;配合SYSTEM_UI_FLAG_HIDE_NAVIGATION使用导航栏会出现时，不会挤压activty的高度，隐藏导航栏会，手指在导航栏滑动，导航栏会再次出现且不会消失</span><br><span class="line"></span><br><span class="line">SYSTEM_UI_FLAG_LAYOUT_STABLE &#x2F;&#x2F;保持内容主体位置不变，不随着Systembar的隐藏显示而偏移</span><br></pre></td></tr></table></figure>
+
+<p>2、透明系统状态栏<br>新增两个新主题背景Theme_Holo_NoActionBar、Theme_Holo_Light_NoActionBar，如果需要不应被系统状态栏覆盖的布局部分则应该启用fitsSystemWindows。<br>对于fitsSystemWindows，官方的说法是“布尔内部属性，用于根据系统窗口（如状态栏）调整视图布局。如果为true，则调整此视图的填充以为系统窗口留出空间。仅在此视图位于非嵌入活动中时才会生效。”默认值为false</p>
+<p>如果需要创建自定义主题，可将其中一个设置为父主题背景或者在样式中添加windowTranslucentNavigation（对应WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS）与windowTranslucentStatus（WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION）<br>#Android5.0沉浸式API<br>在Android5.0开始官方提供了android:statusBarColor （对应方法为 setStatusBarColor），且窗口必须使用FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS绘制系统栏背景<br>不得设置FLAG_TRANSLUCENT_STATUS。<br>#Android9.0全面屏API<br>Android9.0开始增加对全全面屏的适配<br>具体增加以下三种标记</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT（只有当DisplayCutout完全包含在系统状态栏中时，才允许窗口延伸到DisplayCutout区域显示）</span><br><span class="line">LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES（该窗口始终允许延伸到屏幕短边上的DisplayCutout区域）</span><br><span class="line">LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER（该窗口决不允许与DisplayCutout区域重叠）</span><br></pre></td></tr></table></figure>
+
+<p>android9.0全面屏沉浸式代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN );</span><br><span class="line">WindowManager.LayoutParams lp &#x3D; getWindow().getAttributes();</span><br><span class="line">lp.layoutInDisplayCutoutMode &#x3D; WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;</span><br><span class="line">getWindow().setAttributes(lp);</span><br><span class="line">window.setStatusBarColor(Color.TRANSPARENT);</span><br></pre></td></tr></table></figure>
+
+<p>#沉浸式分析<br>以下沉浸式实现以两种情况做分析分别式图片沉浸式和ActionBar沉浸式<br>###图片沉浸式(隐藏状态栏图标)<br>图片沉浸式的应用相对较多最常见的例如splash页面<br>####Android 4.4</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);    </span><br><span class="line">getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);</span><br><span class="line">getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_hide_navigation);</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/6129767-7488cf8718a9b91c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>####Android 5.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);    </span><br><span class="line">getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);</span><br><span class="line">getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_hide_navigation);</span><br></pre></td></tr></table></figure>
+<p>同Android4.4</p>
+<p>####Android 9.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);</span><br><span class="line">getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);</span><br><span class="line">WindowManager.LayoutParams lp &#x3D; getWindow().getAttributes();</span><br><span class="line">lp.layoutInDisplayCutoutMode &#x3D; WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;</span><br><span class="line">getWindow().setAttributes(lp);</span><br><span class="line">getWindow().getDecorView().setSystemUiVisibility(system_ui_flag_fullscreen|system_ui_flag_hide_navigation);</span><br></pre></td></tr></table></figure>
+<p>Android9.0提供新标记（LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES）来适配全面屏、刘海屏等异形屏。</p>
+<p>###ActionBar沉浸式(显示状态栏图标)<br>####Android 4.4</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);                </span><br><span class="line">getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);</span><br></pre></td></tr></table></figure>
+<p>使用如上代码 所呈现的UI样式为：<br><img src="https://upload-images.jianshu.io/upload_images/6129767-3582eefa206a9504.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>可以看出actionBar占住了statusBar的位置，如果statusBar上有图标可能会与actionBar重叠，由于当前是在Android4.4上执行的demo，不能使用<br>setStatusBarColor方法。所以我们可以在actionBar增加一个与statusBar一摸一样的View，使之呈现出沉浸式感觉。<br>具体代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 创建一个与statusBar一样的View</span><br><span class="line"> * @param color View颜色</span><br><span class="line"> *&#x2F;</span><br><span class="line">private View createStatusBarView(Activity activity, int color) &#123;</span><br><span class="line">    &#x2F;&#x2F; 绘制一个和状态栏一样高的矩形</span><br><span class="line">    View statusBarView &#x3D; new View(activity);</span><br><span class="line">    Log.i(TAG,&quot;statusBarHeight:&quot;+getStatusBarHeight());</span><br><span class="line">    LinearLayout.LayoutParams params &#x3D; new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,</span><br><span class="line">            getStatusBarHeight());</span><br><span class="line">    statusBarView.setLayoutParams(params);</span><br><span class="line">    statusBarView.setBackgroundColor(color);</span><br><span class="line">    return statusBarView;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 获取statusBar高度</span><br><span class="line"> *&#x2F;</span><br><span class="line">private int getStatusBarHeight()&#123;</span><br><span class="line">int height &#x3D; 0;</span><br><span class="line">    int resourceId &#x3D; getApplicationContext().getResources().getIdentifier(&quot;status_bar_height&quot;, &quot;dimen&quot;, &quot;android&quot;);</span><br><span class="line">    if (resourceId &gt; 0) &#123;</span><br><span class="line">        height &#x3D; getApplicationContext().getResources().getDimensionPixelSize(resourceId);</span><br><span class="line">    &#125;</span><br><span class="line">    return height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * setFitsSystemWindows</span><br><span class="line"> *&#x2F;</span><br><span class="line">private static void setRootView(Activity activity) &#123;</span><br><span class="line">    &#x2F;&#x2F;获取到activity_main.xml文件</span><br><span class="line">    ViewGroup rootView &#x3D; (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);</span><br><span class="line">    &#x2F;&#x2F;如果不设置参数，会使内容显示到状态栏上</span><br><span class="line">    rootView.setFitsSystemWindows(true);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * 创建barView</span><br><span class="line"> *&#x2F;</span><br><span class="line">private void createBarView(int color) &#123;</span><br><span class="line">    &#x2F;&#x2F;1、创建与statusBar相同高度的view</span><br><span class="line">    View statusView &#x3D; createStatusBarView(this, color);</span><br><span class="line">    &#x2F;&#x2F;2、添加statusView到布局中</span><br><span class="line">    ViewGroup decorView &#x3D; (ViewGroup) this.getWindow().getDecorView();</span><br><span class="line">    decorView.addView(statusView);</span><br><span class="line">    &#x2F;&#x2F;3、让布局适应屏幕</span><br><span class="line">    setRootView(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接调用createBarView方法即可实现效果<br><img src="https://upload-images.jianshu.io/upload_images/6129767-29951b1bd6ca90b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>####Android 5.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)     </span><br><span class="line">window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);           </span><br><span class="line">window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));</span><br></pre></td></tr></table></figure>
+<p>由于Android 5.0新增API:setStatusBarColor，直接使用即可</p>
+<p>####Android 9.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)     </span><br><span class="line">window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);           </span><br><span class="line">window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束-------------</div>
+    
+</div>
+  
+</div>
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Wdz
+  </li>
+    <li class="post-copyright-author">
+    <strong>发布时间:</strong>
+    2020年03月29日 20:56
+  </li>
+  <li class="post-copyright-author">
+    <strong>最后更新:</strong>
+    2020年03月29日 20:56
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://mirse-partner.github.io/2020/03/29/Android-%E6%B2%89%E6%B5%B8%E5%BC%8F%E7%8A%B6%E6%80%81%E6%A0%8F/" title="Android 沉浸式状态栏">https://mirse-partner.github.io/2020/03/29/Android-%E6%B2%89%E6%B5%B8%E5%BC%8F%E7%8A%B6%E6%80%81%E6%A0%8F/</a>
+  </li>
+     <li class="post-copyright-author">
+    <strong>本文与简书同步更新，简书地址：</strong>
+     <a href="https://www.jianshu.com/u/02f2dfb2efac" target="_blank" rel="noopener">https://www.jianshu.com/u/02f2dfb2efac</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          
+            <a href="/tags/%E6%B2%89%E6%B5%B8%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 沉浸式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/08/Anr%E5%88%86%E6%9E%90/" rel="next" title="Anr分析">
+                <i class="fa fa-chevron-left"></i> Anr分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+  <div id="gitalk-container"></div>
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Wdz" />
+            
+              <p class="site-author-name" itemprop="name">Wdz</p>
+              <p class="site-description motion-element" itemprop="description">日常记录学习文章</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/02f2dfb2efac" title="简书" target="_blank">简书</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wdz</span>
+
+  
+</div>
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+ <!-- <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共6.8k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '69b542b0606806b270ad',
+      clientSecret: 'c085c96a7bb6f1a9f4554d4028f8f84324da27d0',
+      repo: 'MyGitalk',
+      owner: 'mirse-partner',
+      admin: ['mirse-partner'],
+      id: '1585486582000', //location.pathname **fixed**
+      distractionFreeMode: 'false'
+    })
+    gitalk.render('gitalk-container')
+  </script>
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
